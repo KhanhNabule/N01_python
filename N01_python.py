@@ -45,3 +45,11 @@ san_pham_ban_chay_nhat = df_ban_hang.loc[df_ban_hang['So Luong'].idxmax()]
 # In ra sản phẩm bán chạy nhất
 print("\nSản Phẩm Bán Chạy Nhất:")
 print(san_pham_ban_chay_nhat.values)
+
+# Ý e
+# Gộp các hàng trùng lặp ID Hoa Don và ID San PHam trong df_thong_tin và update số lượng
+df_thong_tin_gop = df_thong_tin.groupby(['ID Hoa Don', 'ID San Pham'], as_index=False)['So Luong'].sum()
+
+# In ra df_thong_tin sau khi gộp
+print("\nDataframe df_thong_tin sau khi gộp:")
+print(df_thong_tin_gop)
