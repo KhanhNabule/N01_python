@@ -16,7 +16,7 @@ print("\nDataFrame df_nhan_vien:")
 df_nhan_vien = df_nhan_vien.fillna('')
 print(df_nhan_vien)
 
-print("\nDataFrame df_hoadon:")
+print("\nDataFrame df_hoa_don:")
 # Cập nhật các giá trị rỗng thành giá trị mặc định (ở đây là 0)
 df_hoa_don = df_hoa_don.fillna('')
 print(df_hoa_don)
@@ -45,6 +45,18 @@ san_pham_ban_chay_nhat = df_ban_hang.loc[df_ban_hang['So Luong'].idxmax()]
 # In ra sản phẩm bán chạy nhất
 print("\nSản Phẩm Bán Chạy Nhất:")
 print(san_pham_ban_chay_nhat.values)
+
+# Tính tổng doanh thu cửa hàng
+df_doanh_thu = pd.merge(df_hoa_don, df_thong_tin, on='ID Hoa Don', how='inner')
+df_doanh_thu['Tong Doanh Thu'] = df_doanh_thu['So Luong'] * df_doanh_thu['ID San Pham']
+tong_doanh_thu = df_doanh_thu['Tong Doanh Thu'].sum()
+print(df_doanh_thu)
+print("\nTổng Doanh Thu Cửa Hàng:", tong_doanh_thu)
+
+# Update lại số lượng sản phẩm ở df_san_pham sau khi trừ hết số lượng đã bán trong cửa hàng
+df_san_pham['So Luong'] = df_san_pham['So Luong'] - df_ban_hang['So Luong']
+print("\nDataFrame df_san_pham sau khi cập nhật số lượng:")
+print(df_san_pham)
 
 # Ý e
 # Gộp các hàng trùng lặp ID Hoa Don và ID San PHam trong df_thong_tin và update số lượng
