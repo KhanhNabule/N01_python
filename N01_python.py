@@ -10,17 +10,14 @@ print("DataFrame df_san_pham:")
 # Cập nhật các giá trị rỗng thành giá trị mặc định (ở đây là 0)
 df_san_pham = df_san_pham.fillna(0)
 print(df_san_pham)
-
 print("\nDataFrame df_nhan_vien:")
 # Cập nhật các giá trị rỗng thành giá trị mặc định (ở đây là 0)
 df_nhan_vien = df_nhan_vien.fillna('')
 print(df_nhan_vien)
-
 print("\nDataFrame df_hoa_don:")
 # Cập nhật các giá trị rỗng thành giá trị mặc định (ở đây là 0)
 df_hoa_don = df_hoa_don.fillna('')
 print(df_hoa_don)
-
 print("\nDataFrame df_thong_tin:")
 # Cập nhật các giá trị rỗng thành giá trị mặc định (ở đây là 0)
 df_thong_tin = df_thong_tin.fillna(0)
@@ -47,8 +44,11 @@ print("\nSản Phẩm Bán Chạy Nhất:")
 print(san_pham_ban_chay_nhat.values)
 
 # Tính tổng doanh thu cửa hàng
-df_doanh_thu = pd.merge(df_hoa_don, df_thong_tin, on='ID Hoa Don', how='inner')
-df_doanh_thu['Tong Doanh Thu'] = df_doanh_thu['So Luong'] * df_doanh_thu['ID San Pham']
+print("\n Bang Doanh Thu: ")
+df_san_pham_1 = df_san_pham[['ID San Pham', 'Gia']]
+df_thong_tin_1 = df_thong_tin[['ID San Pham', 'So Luong']]
+df_doanh_thu = pd.merge(df_san_pham_1, df_thong_tin_1, on='ID San Pham', how='inner')
+df_doanh_thu['Tong Doanh Thu'] = df_doanh_thu['So Luong'] * df_doanh_thu['Gia']
 tong_doanh_thu = df_doanh_thu['Tong Doanh Thu'].sum()
 print(df_doanh_thu)
 print("\nTổng Doanh Thu Cửa Hàng:", tong_doanh_thu)
@@ -65,3 +65,11 @@ df_thong_tin_gop = df_thong_tin.groupby(['ID Hoa Don', 'ID San Pham'], as_index=
 # In ra df_thong_tin sau khi gộp
 print("\nDataframe df_thong_tin sau khi gộp:")
 print(df_thong_tin_gop)
+
+with pd.ExcelWriter('OutputDuLieuThucHanh_N01.xlsx') as writer:
+    df_san_pham.to_excel(writer, sheet_name='San Pham', index=False)
+    df_nhan_vien.to_excel(writer, sheet_name='Nhan Vien', index=False)
+    df_hoa_don.to_excel(writer, sheet_name='Hoa Don', index=False)
+    df_thong_tin.to_excel(writer, sheet_name='Thong Tin Hoa Don', index=False)
+    df_ban_hang.to_excel(writer, sheet_name='Ban Hang', index=False)
+    df_doanh_thu.to_excel(writer, sheet_name='Doanh Thu', index=False)
