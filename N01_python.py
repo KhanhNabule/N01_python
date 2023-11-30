@@ -83,3 +83,8 @@ plt.xlabel("Tên sản phẩm")
 plt.ylabel("Số lượng")
 plt.title("Biểu đồ số lượng sản phẩm bán")
 plt.show()
+
+#trong trường hợp này chúng ta có thể chọn biểu đồ cột (bar chart) 
+#để hiển thị số lượng sản phẩm đã bán.
+# Biểu đồ cột thường được sử dụng để so sánh giá trị của các mục khác nhau.
+# Trong trường hợp này, chúng ta có thể so sánh số lượng sản phẩm bán của từng mục Ten sản phẩm.
