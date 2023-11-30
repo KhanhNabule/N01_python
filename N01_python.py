@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 # Đọc dữ liệu từ các sheet
 df_san_pham = pd.read_excel('DuLieuThucHanh2_N01.xlsx', sheet_name='San Pham')
 df_nhan_vien = pd.read_excel('DuLieuThucHanh2_N01.xlsx', sheet_name='Nhan Vien')
@@ -73,3 +74,12 @@ with pd.ExcelWriter('OutputDuLieuThucHanh_N01.xlsx') as writer:
     df_thong_tin.to_excel(writer, sheet_name='Thong Tin Hoa Don', index=False)
     df_ban_hang.to_excel(writer, sheet_name='Ban Hang', index=False)
     df_doanh_thu.to_excel(writer, sheet_name='Doanh Thu', index=False)
+
+#vẽ biểu đồ cho df ở ý b
+df_ban_hang.plot(kind="bar", x="Ten", y="So Luong")
+
+# Tùy chỉnh biểu đồ
+plt.xlabel("Tên sản phẩm")
+plt.ylabel("Số lượng")
+plt.title("Biểu đồ số lượng sản phẩm bán")
+plt.show()
